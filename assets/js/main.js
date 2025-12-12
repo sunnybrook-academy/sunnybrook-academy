@@ -1,62 +1,97 @@
-const dialogueText = document.getElementById("dialogue-text");
-const characterSprite = document.getElementById("character-sprite");
-const choicesBox = document.getElementById("choices");
+// assets/js/main.js
+window.addEventListener("DOMContentLoaded", () => {
+  // element refs
+  const dialogueEl = document.getElementById("text");
+  const speakerEl = document.getElementById("speaker");
+  const spriteEl = document.getElementById("character-sprite");
+  const choicesEl = document.getElementById("choices");
+  const textboxEl = document.getElementById("textbox");
 
-let scene = {
-    text: "Oh! You're the new student, right?",
-    sprite: "assets/images/characters/Nathan/Nathan-neutral.png",
-    choices: [
-        { text: "Yeah, that’s me!", next: "A" },
-        { text: "Who are you?", next: "B" },
-        { text: "...", next: "C" }
-    ]
-};
+  console.log("main.js: DOM ready.");
+  if(!dialogueEl) { console.error("main.js: #text element not found"); }
+  if(!choicesEl) { console.error("main.js: #choices element not found"); }
+  if(!spriteEl) { console.error("main.js: #character-sprite not found"); }
 
-function showScene(data) {
-    // show dialogue
-    dialogueText.textContent = data.text;
+  // ensure textbox visible (defensive)
+  textboxEl.style.display = "block";
+  textboxEl.style.opacity = "1";
+  textboxEl.style.visibility = "visible";
 
-    // update sprite
-    characterSprite.src = data.sprite;
+  // small helper: set sprite (case-sensitive path)
+  function setSprite(name, filename) {
+    const path = `assets/images/characters/${name}/${filename}`;
+    spriteEl.src = path;
+    console.log("setSprite ->", path);
+  }
 
-    // update choices
-    choicesBox.innerHTML = "";
+  // render a scene object
+  function renderScene(scene) {
+    try {
+      speakerEl.textContent = scene.speaker || "Narrator";
+      dialogueEl.textContent = scene.text || "";
+      if(scene.sprite) setSprite(scene.spriteFolder || "Nathan", scene.sprite);
+      renderChoices(scene.choices || []);
+    } catch(err) {
+      console.error("renderScene error:", err);
+    }
+  }
 
-    data.choices.forEach(choice => {
-        let btn = document.createElement("button");
-        btn.classList.add("choice-btn");
-        btn.textContent = choice.text;
-
-        btn.onclick = () => handleChoice(choice.next);
-
-        choicesBox.appendChild(btn);
+  // show choices array [{ label, onSelect }]
+  function renderChoices(list) {
+    choicesEl.innerHTML = "";
+    list.forEach((c, i) => {
+      const btn = document.createElement("button");
+      btn.className = "choice-btn";
+      btn.textContent = c.label;
+      btn.addEventListener("click", () => {
+        console.log("choice clicked:", c.label);
+        c.onSelect && c.onSelect();
+      });
+      choicesEl.appendChild(btn);
     });
-}
+  }
 
-function handleChoice(option) {
-    if (option === "A") {
-        showScene({
-            text: "Haha—nice to meet you! I'm Nathan.",
-            sprite: "assets/images/characters/Nathan/Nathan-happy.png",
-            choices: []
+  // initial scene data (guaranteed to show)
+  const startScene = {
+    speaker: "Nathan",
+    text: "Oh! You're the new student, right? (If you don't see this text, check the console.)",
+    spriteFolder: "Nathan",
+    sprite: "Nathan-neutral.png",
+    choices: [
+      { label: "Yeah, that's me!", onSelect: ()=> {
+        renderScene({
+          speaker: "Nathan",
+          text: "Nice to meet you! I'm Nathan.",
+          sprite: "Nathan-happy.png"
         });
-    }
-
-    if (option === "B") {
-        showScene({
-            text: "Oh! Right—I'm Nathan. President of the welcoming committee.",
-            sprite: "assets/images/characters/Nathan/Nathan-smile.png",
-            choices: []
+      }},
+      { label: "Who are you?", onSelect: ()=> {
+        renderScene({
+          speaker: "Nathan",
+          text: "I'm Nathan — Student Ambassador.",
+          sprite: "Nathan-smile.png"
         });
-    }
-
-    if (option === "C") {
-        showScene({
-            text: "…Not much of a talker, huh?",
-            sprite: "assets/images/characters/Nathan/Nathan-sad.png",
-            choices: []
+      }},
+      { label: "…", onSelect: ()=> {
+        renderScene({
+          speaker: "Nathan",
+          text: "That's okay. We can take it slow.",
+          sprite: "Nathan-sad.png"
         });
-    }
-}
+      }}
+    ]
+  };
 
-showScene(scene);
+  // render the start scene
+  renderScene(startScene);
+
+  // Expose quick debug helpers in console for you
+  window.__sb_debug = {
+    setText: (s) => { dialogueEl.textContent = s; },
+    setSpeaker: (s) => { speakerEl.textContent = s; },
+    showScene: (sc) => { renderScene(sc); }
+  };
+
+  console.log("main.js: initialized. Try window.__sb_debug.setText('hi') in console.");
+});
+      
