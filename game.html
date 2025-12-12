@@ -1,33 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunnybrook Academy — Game</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script defer src="assets/js/survey.js"></script>
-    <script defer src="assets/js/orientation.js"></script>
-    <script defer src="assets/js/main.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sunnybrook — Game (Debug Build)</title>
+
+  <!-- stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- load scripts deferred so DOM is ready (they still wrap in DOMContentLoaded) -->
+  <script defer src="assets/js/main.js"></script>
 </head>
 <body>
 
-<div id="orientation-warning">
-    <p>Please rotate your device to landscape mode.</p>
-</div>
+  <!-- rotation overlay (CSS handles show/hide) -->
+  <div id="rotate-overlay" aria-hidden="true">
+    <p>Please rotate your device to landscape.</p>
+  </div>
 
-<div id="game-container">
+  <!-- main game container -->
+  <div id="game-container">
 
-    <img id="background" src="assets/images/backgrounds/classroom-day.png">
+    <!-- background -->
+    <img id="background" src="assets/images/backgrounds/classroom-day.png" alt="background">
 
-    <img id="character-sprite" src="assets/images/characters/Nathan/Nathan-neutral.png">
+    <!-- character sprite -->
+    <img id="character-sprite" src="assets/images/characters/Nathan/Nathan-neutral.png" alt="Nathan">
 
+    <!-- textbox: IMPORTANT IDs must match JS -->
     <div id="textbox">
-        <p id="dialogue-text">...</p>
+      <div id="speaker">Nathan</div>
+      <div id="text" class="font-narrative">(dialogue will appear here)</div>
     </div>
 
+    <!-- choices go here -->
     <div id="choices"></div>
 
-</div>
-
+  </div>
 </body>
 </html>
