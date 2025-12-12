@@ -1,115 +1,65 @@
-/* === FONT IMPORTS === */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nosifer&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap');
-
-/* === FONT CLASSES === */
-.font-narrative { font-family: 'Inter', sans-serif; }
-.font-elegant { font-family: 'Playfair Display', serif; }
-.font-cute { font-family: 'Quicksand', sans-serif; }
-.font-friendly { font-family: 'Fredoka', sans-serif; }
-.font-ominous { font-family: 'Cinzel', serif; }
-.font-horror { font-family: 'Nosifer', cursive; }
-.font-glitch { font-family: 'Share Tech Mono', monospace; letter-spacing: 0.5px; }
-.font-handwritten { font-family: 'Kalam', cursive; }
-
-/* === GENERAL LAYOUT === */
 body {
     margin: 0;
-    padding: 0;
+    background: #dff1ff;
     overflow: hidden;
-    background: #e3f2ff;
 }
 
 #game-container {
-    position: relative;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    position: relative;
 }
 
-/* Character sprite */
+/* Background */
+#background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Character */
 #character-sprite {
     position: absolute;
-    bottom: 10px;
-    left: 20px;
-    height: 85%;
-    object-fit: contain;
-    z-index: 5;
+    bottom: 0;
+    left: 2vw;
+    height: 80vh;
 }
 
-/* === TEXTBOX === */
+/* TEXTBOX FIX */
 #textbox {
     position: absolute;
-    bottom: 0;
-    width: 100%;
+    bottom: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vw;
+    padding: 18px 24px;
     background: rgba(255, 255, 255, 0.85);
-    padding: 20px;
-    border-top: 3px solid #00000040;
-    z-index: 10;
-    display: block;
-}
-
-#speaker {
-    font-weight: 700;
-    font-size: 22px;
-    margin-bottom: 10px;
-    font-family: 'Inter', sans-serif;
-}
-
-#text {
+    border: 3px solid #444;
+    border-radius: 20px;
     font-size: 20px;
-    line-height: 1.4;
+    font-family: 'Georgia', serif;
     color: #000;
 }
 
-/* === CHOICES === */
+#dialogue-text {
+    margin: 0;
+}
+
+/* Choices */
 #choices {
     position: absolute;
-    bottom: 150px;
-    right: 20px;
-    width: 35%;
+    right: 3vw;
+    top: 25vh;
+    width: 40vw;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    z-index: 20;
+    gap: 12px;
 }
 
 .choice-btn {
-    background: #ffffffd8;
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: 2px solid #333;
-    cursor: pointer;
-    transition: 0.2s;
-    font-family: 'Inter', sans-serif;
+    padding: 15px;
+    border-radius: 15px;
+    background: white;
+    border: 3px solid #333;
+    font-size: 22px;
 }
-
-.choice-btn:hover {
-    background: #d4e9ff;
-    transform: scale(1.03);
-}
-
-/* === ROTATE OVERLAY === */
-#rotate-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: #000000e0;
-    color: white;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    z-index: 9999;
-}
-
-@media screen and (orientation: portrait) {
-    #rotate-overlay { display: flex; }
-    #game-container { display: none; }
-        }
