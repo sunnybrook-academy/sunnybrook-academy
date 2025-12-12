@@ -3,36 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunnybrook - Explore</title>
+    <title>Sunnybrook Academy — Game</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <script defer src="assets/js/survey.js"></script>
+    <script defer src="assets/js/orientation.js"></script>
+    <script defer src="assets/js/main.js"></script>
 </head>
 <body>
 
-<div id="rotate-overlay">
-    <p>Please rotate your device to landscape.</p>
+<div id="orientation-warning">
+    <p>Please rotate your device to landscape mode.</p>
 </div>
 
 <div id="game-container">
 
-    <!-- Background -->
-    <img id="background" src="assets/images/backgrounds/classroom-day.png" style="position:absolute;width:100%;height:100%;object-fit:cover;z-index:1;" />
+    <img id="background" src="assets/images/backgrounds/classroom-day.png">
 
-    <!-- Character -->
-    <img id="character-sprite" src="assets/images/characters/Nathan/Nathan-neutral.png" style="position:absolute;bottom:10px;left:20px;height:85%;object-fit:contain;z-index:5;" />
+    <img id="character-sprite" src="assets/images/characters/Nathan/Nathan-neutral.png">
 
-    <!-- Textbox -->
     <div id="textbox">
-        <div id="speaker">Narrator</div>
-        <div id="text" class="font-narrative">Loading...</div>
+        <p id="dialogue-text">...</p>
     </div>
 
-    <!-- Choices -->
     <div id="choices"></div>
 
 </div>
-
-<script src="assets/js/orientation.js"></script>
-<script src="assets/js/explore.js"></script>
 
 </body>
 </html>
