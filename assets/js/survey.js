@@ -3,7 +3,16 @@ const speaker = document.getElementById("speaker");
 const text = document.getElementById("text");
 const choicesBox = document.getElementById("choices");
 
-/* Helper: create choices */
+/* === FONT + SPRITE HELPERS === */
+function setFont(fontClass) {
+    text.className = fontClass;
+}
+
+function setSprite(name, expression) {
+    character.src = `assets/images/characters/${name}/${expression}.png`;
+}
+
+/* === CHOICES === */
 function showChoices(options) {
     choicesBox.innerHTML = "";
     options.forEach(opt => {
@@ -15,25 +24,72 @@ function showChoices(options) {
     });
 }
 
-/* Start of intro survey */
+/* === INTRO SURVEY === */
 function startSurvey() {
     speaker.textContent = "Nathan";
-    text.textContent = "Hey there! Before we start, I need a little info from you.";
+    setFont("font-friendly");
+    setSprite("Nathan", "Nathan-happy");
+
+    text.textContent = "Oh! Hey there! You must be the new student, right?";
 
     showChoices([
-        { label: "Sure, ask away.", action: question1 },
-        { label: "Do I have to?", action: reluctant }
+        { label: "Yeah, that’s me!", action: q1 },
+        { label: "Who are you?", action: askWho },
+        { label: "…", action: quiet }
     ]);
 }
 
-function reluctant() {
-    text.textContent = "Sadly… yeah. I promise it won’t take long.";
+function askWho() {
+    setSprite("Nathan", "Nathan-neutral");
+    text.textContent = "Ah! Sorry—I'm Nathan. Student Ambassador. I'm supposed to interview you!";
+    showChoices([{ label: "Alright.", action: q1 }]);
+}
+
+function quiet() {
+    setSprite("Nathan", "Nathan-neutral");
+    text.textContent = "Shy, huh? That's okay! I can talk for both of us.";
+    showChoices([{ label: "Okay…", action: q1 }]);
+}
+
+function q1() {
+    setSprite("Nathan", "Nathan-smile");
+    text.textContent = "First things first… what’s your name?";
     showChoices([
-        { label: "Alright, fine.", action: question1 }
+        { label: "Enter name", action: getName }
     ]);
 }
 
-function question1() {
+function getName() {
+    const name = prompt("Enter your name:");
+
+    window.playerName = name ?? "Player";
+    text.textContent = `Nice to meet you, ${window.playerName}!`;
+
+    showChoices([{ label: "Next", action: q2 }]);
+}
+
+function q2() {
+    setSprite("Nathan", "Nathan-neutral");
+    text.textContent = "What year level are you in?";
+
+    showChoices([
+        { label: "7", action: endSurvey },
+        { label: "8", action: endSurvey },
+        { label: "9", action: endSurvey },
+        { label: "10", action: endSurvey }
+    ]);
+}
+
+function endSurvey() {
+    setSprite("Nathan", "Nathan-happy");
+    text.textContent = "Alright! You're all set. Let’s get you inside.";
+    showChoices([
+        { label: "Begin", action: () => window.location.href = "game.html" }
+    ]);
+}
+
+/* === START === */
+startSurvey();
     text.textContent = "First off — what's your name?";
     showChoices([
         { label: "Enter name", action: askPlayerName }
