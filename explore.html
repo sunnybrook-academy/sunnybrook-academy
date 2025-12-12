@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunnybrook - Explore</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
 
+<!-- ROTATE OVERLAY -->
+<div id="rotate-overlay">
+    <p>Please rotate your device to landscape.</p>
+</div>
+
+<!-- GAME CONTAINER -->
+<div id="game-container">
+
+    <!-- Background (optional, change in JS or via CSS) -->
+    <img id="background" src="assets/images/backgrounds/classroom-day.png" alt="Background" style="position:absolute; width:100%; height:100%; object-fit:cover; z-index:1;">
+
+    <!-- Character Sprite -->
+    <img id="character-sprite" src="assets/images/characters/Nathan/Nathan-neutral.png" alt="Nathan" style="position:absolute; bottom:10px; left:20px; height:85%; object-fit:contain; z-index:5;">
+
+    <!-- Textbox -->
+    <div id="textbox">
+        <div id="speaker">Narrator</div>
+        <div id="text" class="font-narrative">Loading scene...</div>
+    </div>
+
+    <!-- Choices -->
+    <div id="choices"></div>
+
+</div>
+
+<!-- JS -->
+<script src="assets/js/orientation.js"></script>
+<script src="assets/js/explore.js"></script>
+
+</body>
+</html>
