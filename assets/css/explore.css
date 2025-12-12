@@ -1,75 +1,80 @@
+/* Entire page scrolls */
 body {
     margin: 0;
     padding: 0;
-    background-color: #dff0ff;
-    overflow: hidden;
+    background: #dff0ff;
     font-family: Arial, sans-serif;
+    overflow-y: auto;                /* <--- SCROLL ENABLED */
 }
 
-/* MAIN GAME WINDOW */
-#game-container {
-    position: relative;
+/* Wraps the entire game */
+#game-wrapper {
     width: 100%;
-    height: 100vh;           /* This is the missing piece */
-    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-bottom: 50px;
 }
 
-/* CHARACTER */
+/* Sprite Section */
+.sprite-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
 #nathan-sprite {
-    position: absolute;
-    bottom: 25%;
-    left: 5%;
-    width: 250px;
-    max-width: 40%;
+    width: 300px;
+    max-width: 70%;
     object-fit: contain;
 }
 
-/* DIALOGUE BOX */
+/* Dialogue box */
 #dialogue-box {
-    position: absolute;
-    bottom: 18%;            /* pushes it UP above choices */
-    left: 50%;
-    transform: translateX(-50%);
     width: 90%;
-    max-width: 800px;
+    margin: 20px auto;
     background: white;
-    padding: 15px 20px;
     border-radius: 20px;
+    padding: 18px 22px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.15);
     font-size: 1.2rem;
 }
 
-/* CHOICE BUTTONS */
+/* Choice buttons */
 #choices {
-    position: absolute;
-    bottom: 5%;
-    left: 50%;
-    transform: translateX(-50%);
     width: 90%;
-    max-width: 800px;
+    margin: 20px auto;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 
 .choice {
-    padding: 16px;
-    font-size: 1.1rem;
-    border: 3px solid #333;
+    padding: 18px;
     background: white;
-    border-radius: 18px;
+    border: 3px solid #333;
+    border-radius: 20px;
     cursor: pointer;
+    font-size: 1.1rem;
+    transition: 0.2s;
 }
 
-/* MOBILE */
+.choice:hover {
+    transform: scale(1.03);
+}
+
+/* Mobile adjustments */
 @media (max-width: 600px) {
     #nathan-sprite {
-        bottom: 30%;
-        width: 180px;
+        width: 220px;
     }
 
     #dialogue-box {
-        bottom: 26%;
+        font-size: 1rem;
+        padding: 14px 18px;
+    }
+
+    .choice {
         font-size: 1rem;
     }
 }
