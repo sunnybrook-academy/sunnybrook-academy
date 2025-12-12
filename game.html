@@ -3,92 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Scene</title>
+    <title>Sunnybrook - Explore</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
 
-<div id="rotate-overlay"><p>Rotate to landscape.</p></div>
+<div id="rotate-overlay">
+    <p>Please rotate your device to landscape.</p>
+</div>
 
 <div id="game-container">
 
-    <img id="character-sprite" src="assets/images/characters/Nathan/Nathan-neutral.png">
+    <!-- Background -->
+    <img id="background" src="assets/images/backgrounds/classroom-day.png" style="position:absolute;width:100%;height:100%;object-fit:cover;z-index:1;" />
 
+    <!-- Character -->
+    <img id="character-sprite" src="assets/images/characters/Nathan/Nathan-neutral.png" style="position:absolute;bottom:10px;left:20px;height:85%;object-fit:contain;z-index:5;" />
+
+    <!-- Textbox -->
     <div id="textbox">
         <div id="speaker">Narrator</div>
         <div id="text" class="font-narrative">Loading...</div>
     </div>
 
+    <!-- Choices -->
     <div id="choices"></div>
 
 </div>
 
-<script>
-const character = document.getElementById("character-sprite");
-const speaker = document.getElementById("speaker");
-const text = document.getElementById("text");
-const choices = document.getElementById("choices");
-
-function setFont(f) { text.className = f; }
-function setSprite(name, emotion) {
-    character.src = `assets/images/characters/${name}/${emotion}.png`;
-}
-
-/* Demo scene */
-function scene1() {
-    speaker.textContent = "Nathan";
-    setFont("font-friendly");
-    setSprite("Nathan", "Nathan-smile");
-
-    text.textContent = `Sooo… ${window.playerName}, how does it feel being here?`;
-
-    choices.innerHTML = `
-        <div class='choice-btn' onclick='scene2()'>Excited!</div>
-        <div class='choice-btn' onclick='scene3()'>Nervous…</div>
-        <div class='choice-btn' onclick='scene4()'>I already hate it here.</div>
-    `;
-}
-
-function scene2() {
-    text.textContent = "That's awesome! I love your energy.";
-    choices.innerHTML = `<div class='choice-btn' onclick='scene5()'>Continue</div>`;
-}
-
-function scene3() {
-    setSprite("Nathan", "Nathan-neutral");
-    text.textContent = "You’ll be fine. I promise.";
-    choices.innerHTML = `<div class='choice-btn' onclick='scene5()'>Continue</div>`;
-}
-
-function scene4() {
-    setSprite("Nathan", "Nathan-sad");
-    text.textContent = "O-oh… I hope you'll warm up to it.";
-    choices.innerHTML = `<div class='choice-btn' onclick='scene5()'>Continue</div>`;
-}
-
-function scene5() {
-    /* Slightly creepy moment */
-    speaker.textContent = "???";
-    setFont("font-glitch");
-    setSprite("Nathan", "Nathan-neutral");
-
-    text.textContent = "Do you remember why you're really here?";
-
-    choices.innerHTML = `
-        <div class='choice-btn' onclick='scene6()'>What?</div>
-    `;
-}
-
-function scene6() {
-    speaker.textContent = "Narrator";
-    setFont("font-narrative");
-    text.textContent = "A strange silence fills the hallway.";
-    choices.innerHTML = "";
-}
-
-scene1();
-</script>
+<script src="assets/js/orientation.js"></script>
+<script src="assets/js/explore.js"></script>
 
 </body>
-  </html>
+</html>
