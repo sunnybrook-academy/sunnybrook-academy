@@ -1,58 +1,26 @@
-window.addEventListener("DOMContentLoaded", () => {
-    const character = document.getElementById("character-sprite");
-    const speaker = document.getElementById("speaker");
-    const text = document.getElementById("text");
-    const choices = document.getElementById("choices");
-    const background = document.getElementById("background");
+// Dialogue text element
+const dialogueText = document.getElementById("dialogue-text");
 
-    function setFont(f) { text.className = f; }
-    function setSprite(name, emotion) { character.src = `assets/images/characters/${name}/${emotion}.png`; }
-    function setBackground(img) { background.src = img; }
+// Nathan sprite
+const sprite = document.getElementById("nathan-sprite");
 
-    function scene1() {
-        speaker.textContent = "Nathan";
-        setFont("font-friendly");
-        setSprite("Nathan","Nathan-smile");
-        text.textContent = `Sooo… ${window.playerName}, how does it feel being here?`;
+// Map emotions to sprite file names
+const emotions = {
+    neutral: "img/nathan_neutral.png",
+    happy: "img/nathan_happy.png",
+    smile: "img/nathan_smile.png",
+    sad: "img/nathan_sad.png"
+};
 
-        choices.innerHTML=`
-            <div class='choice-btn' onclick='scene2()'>Excited!</div>
-            <div class='choice-btn' onclick='scene3()'>Nervous…</div>
-            <div class='choice-btn' onclick='scene4()'>I already hate it here.</div>
-        `;
-    }
+// Add event listeners to ALL buttons
+document.querySelectorAll(".choice").forEach(button => {
+    button.addEventListener("click", () => {
 
-    window.scene2 = function() { 
-        text.textContent="That's awesome! I love your energy."; 
-        choices.innerHTML=`<div class='choice-btn' onclick='scene5()'>Continue</div>`; 
-    }
+        // Change dialogue text
+        dialogueText.textContent = button.dataset.dialogue;
 
-    window.scene3 = function() { 
-        setSprite("Nathan","Nathan-neutral"); 
-        text.textContent="You’ll be fine. I promise."; 
-        choices.innerHTML=`<div class='choice-btn' onclick='scene5()'>Continue</div>`; 
-    }
-
-    window.scene4 = function() { 
-        setSprite("Nathan","Nathan-sad"); 
-        text.textContent="O-oh… I hope you'll warm up to it."; 
-        choices.innerHTML=`<div class='choice-btn' onclick='scene5()'>Continue</div>`; 
-    }
-
-    window.scene5 = function() { 
-        speaker.textContent="???"; 
-        setFont("font-glitch"); 
-        text.textContent="Do you remember why you're really here?"; 
-        choices.innerHTML=`<div class='choice-btn' onclick='scene6()'>What?</div>`; 
-    }
-
-    window.scene6 = function() { 
-        speaker.textContent="Narrator"; 
-        setFont("font-narrative"); 
-        text.textContent="A strange silence fills the hallway."; 
-        choices.innerHTML=""; 
-    }
-
-    // Start first scene
-    scene1();
+        // Change sprite image
+        const emotion = button.dataset.emotion;
+        sprite.src = emotions[emotion];
+    });
 });
