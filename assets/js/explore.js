@@ -1,26 +1,43 @@
-// Dialogue text element
-const dialogueText = document.getElementById("dialogue-text");
+// Simple dialogue example
 
-// Nathan sprite
+let index = 0;
+
+const script = [
+    {
+        text: "Oh, hey there! You're new, right? I'm Nathan.",
+        choices: ["Yeah, first day!", "Who are you again?"]
+    },
+    {
+        text: "Nice to meet you! Let me show you around.",
+        choices: ["Let's go!", "No thanks."]
+    }
+];
+
+const dialogueText = document.getElementById("dialogue-text");
+const choicesBox = document.getElementById("choices");
 const sprite = document.getElementById("nathan-sprite");
 
-// Map emotions to sprite file names
-const emotions = {
-    neutral: "img/nathan_neutral.png",
-    happy: "img/nathan_happy.png",
-    smile: "img/nathan_smile.png",
-    sad: "img/nathan_sad.png"
-};
+function loadScene() {
+    let scene = script[index];
 
-// Add event listeners to ALL buttons
-document.querySelectorAll(".choice").forEach(button => {
-    button.addEventListener("click", () => {
+    dialogueText.textContent = scene.text;
 
-        // Change dialogue text
-        dialogueText.textContent = button.dataset.dialogue;
+    // Clear previous choices
+    choicesBox.innerHTML = "";
 
-        // Change sprite image
-        const emotion = button.dataset.emotion;
-        sprite.src = emotions[emotion];
+    scene.choices.forEach((choice, i) => {
+        let btn = document.createElement("button");
+        btn.classList.add("choice");
+        btn.textContent = choice;
+
+        btn.addEventListener("click", () => {
+            index++;
+            if (index >= script.length) index = script.length - 1;
+            loadScene();
+        });
+
+        choicesBox.appendChild(btn);
     });
-});
+}
+
+loadScene();
